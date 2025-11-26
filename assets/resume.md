@@ -1,5 +1,6 @@
 ## Experience
 
+
 ### 주식회사 화해글로벌
 *2024.01 ~ 현재 | 서비스팀 백엔드 개발*
 *   **화해 앱, 운영어드민 API 개발**
@@ -80,7 +81,9 @@
 
 > **Tech Stack**: PHP 7.1, Laravel 5.6, MySQL 5.6, Redis, Elasticsearch, Angular 1.6, AWS (EC2, RDS Aurora, S3, SQS)
 
+
 ## Education
+
 
 ### 서울여자대학교 (Seoul Women's University)
 *2013.03 ~ 2017.02 | 멀티미디어학과*
