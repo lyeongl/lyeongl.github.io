@@ -264,37 +264,200 @@ section {
 /* Resume Section */
 .resume-section {
     background: rgba(67, 61, 139, 0);
+    padding: 5rem 1rem 8rem;
 }
 
-.markdown-body {
-    background: var(--card-bg);
+/* Timeline Styles */
+.timeline {
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 0;
+}
+
+/* Timeline center line */
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(180deg,
+            transparent 0%,
+            var(--primary-color) 10%,
+            var(--secondary-color) 50%,
+            var(--accent-color) 90%,
+            transparent 100%);
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 4rem;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.timeline-item.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Timeline dot */
+.timeline-dot {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+    border: 3px solid var(--bg-color);
+    z-index: 10;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.timeline-dot.education {
+    background: linear-gradient(135deg, var(--secondary-color), var(--accent-color));
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.7);
+    }
+
+    50% {
+        box-shadow: 0 0 0 10px rgba(56, 189, 248, 0);
+    }
+}
+
+/* Timeline content cards */
+.timeline-content {
+    position: relative;
+    width: 45%;
     padding: 2rem;
-    border-radius: 10px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-    /* Glassmorphism shadow */
-    color: var(--text-color);
-    backdrop-filter: blur(5px);
+    background: var(--card-bg);
+    border-radius: 15px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.markdown-body h1,
-.markdown-body h2,
-.markdown-body h3 {
+.timeline-content:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 12px 40px rgba(56, 189, 248, 0.3);
+}
+
+/* Left side items */
+.timeline-item[data-side="left"] .timeline-content {
+    margin-right: auto;
+    margin-left: 0;
+}
+
+/* Right side items */
+.timeline-item[data-side="right"] .timeline-content {
+    margin-left: auto;
+    margin-right: 0;
+}
+
+/* Timeline date badge */
+.timeline-date {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.timeline-content h3 {
     background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
-    margin-top: 1.5rem;
-    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
 }
 
-.markdown-body p {
+.timeline-content h4 {
+    color: var(--secondary-color);
+    font-size: 1.1rem;
     margin-bottom: 1rem;
+    font-weight: 500;
 }
 
-.markdown-body ul {
-    margin-left: 1.5rem;
-    margin-bottom: 1rem;
+.timeline-content ul {
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0;
+}
+
+.timeline-content ul li {
+    position: relative;
+    padding-left: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+}
+
+.timeline-content ul li::before {
+    content: '▹';
+    position: absolute;
+    left: 0;
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+/* Nested list styles */
+.timeline-content ul ul {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.timeline-content ul ul li {
+    font-size: 0.95rem;
+    margin-bottom: 0.3rem;
+    padding-left: 1.2rem;
+}
+
+.timeline-content ul ul li::before {
+    content: '•';
+    color: var(--secondary-color);
+}
+
+/* Tech stack badges */
+.tech-stack {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 0.85rem;
+    color: #cbd5e1;
+    font-style: italic;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .timeline::before {
+        left: 20px;
+    }
+
+    .timeline-dot {
+        left: 20px;
+        transform: translateX(-50%);
+    }
+
+    .timeline-item[data-side="left"] .timeline-content,
+    .timeline-item[data-side="right"] .timeline-content {
+        width: calc(100% - 60px);
+        margin-left: 60px;
+        margin-right: 0;
+    }
 }
 
 /* Portfolio Section */
