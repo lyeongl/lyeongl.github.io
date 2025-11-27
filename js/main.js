@@ -95,6 +95,122 @@ function render(time) {
 generateNoiseOverlay();
 requestAnimationFrame(render);
 
+// Interactive Particle Effect - Separate Canvas
+const particleCanvas = document.getElementById('particle-canvas');
+const particleCtx = particleCanvas.getContext('2d', { alpha: true });
+
+// Set particle canvas size
+function resizeParticleCanvas() {
+    particleCanvas.width = window.innerWidth;
+    particleCanvas.height = window.innerHeight;
+}
+resizeParticleCanvas();
+
+window.addEventListener('resize', () => {
+    resizeParticleCanvas();
+});
+
+const particles = [];
+const maxParticles = 50;
+let mouseX = 0;
+let mouseY = 0;
+let isMouseMoving = false;
+
+class Particle {
+    constructor(x, y) {
+        this.x = x;
+        this.y = y;
+        this.size = Math.random() * 2 + 0.5; // Smaller particles
+        this.speedX = (Math.random() - 0.5) * 3;
+        this.speedY = (Math.random() - 0.5) * 3;
+        this.life = 1;
+        this.decay = Math.random() * 0.015 + 0.008; // Slower decay
+        this.color = this.getRandomColor();
+    }
+
+    getRandomColor() {
+        const colors = [
+            [56, 189, 248],   // primary-color
+            [129, 140, 248],  // secondary-color
+            [244, 114, 182],  // accent-color
+            [168, 85, 247],   // purple
+        ];
+        return colors[Math.floor(Math.random() * colors.length)];
+    }
+
+    update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        this.life -= this.decay;
+        this.speedX *= 0.98;
+        this.speedY *= 0.98;
+    }
+
+    draw() {
+        particleCtx.save();
+        const [r, g, b] = this.color;
+
+        // Much larger, more subtle glow effect
+        const glowSize = this.size * 8; // Increased from 3
+        const gradient = particleCtx.createRadialGradient(this.x, this.y, 0, this.x, this.y, glowSize);
+        gradient.addColorStop(0, `rgba(${r}, ${g}, ${b}, ${this.life * 0.3})`); // More transparent
+        gradient.addColorStop(0.3, `rgba(${r}, ${g}, ${b}, ${this.life * 0.15})`);
+        gradient.addColorStop(0.6, `rgba(${r}, ${g}, ${b}, ${this.life * 0.05})`);
+        gradient.addColorStop(1, `rgba(${r}, ${g}, ${b}, 0)`);
+
+        particleCtx.fillStyle = gradient;
+        particleCtx.beginPath();
+        particleCtx.arc(this.x, this.y, glowSize, 0, Math.PI * 2);
+        particleCtx.fill();
+
+        // Very subtle core
+        particleCtx.fillStyle = `rgba(${r}, ${g}, ${b}, ${this.life * 0.4})`;
+        particleCtx.beginPath();
+        particleCtx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        particleCtx.fill();
+        particleCtx.restore();
+    }
+
+    isDead() {
+        return this.life <= 0;
+    }
+}
+
+// Track mouse position
+document.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    isMouseMoving = true;
+
+    // Create particles on mouse move
+    if (particles.length < maxParticles) {
+        for (let i = 0; i < 2; i++) {
+            particles.push(new Particle(mouseX, mouseY));
+        }
+    }
+});
+
+// Particle animation loop
+function animateParticles() {
+    // Clear canvas
+    particleCtx.clearRect(0, 0, particleCanvas.width, particleCanvas.height);
+
+    // Update and draw particles
+    for (let i = particles.length - 1; i >= 0; i--) {
+        particles[i].update();
+        particles[i].draw();
+
+        if (particles[i].isDead()) {
+            particles.splice(i, 1);
+        }
+    }
+
+    requestAnimationFrame(animateParticles);
+}
+
+// Start particle animation
+animateParticles();
+
 // Existing code below
 document.addEventListener('DOMContentLoaded', () => {
     // Load and Parse Resume.md to Timeline
