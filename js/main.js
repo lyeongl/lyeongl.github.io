@@ -1,3 +1,98 @@
+// Canvas Background Animation with Anti-Banding
+const canvas = document.getElementById('background-canvas');
+const ctx = canvas.getContext('2d', { alpha: false });
+
+// Set canvas size (Debounced)
+let resizeTimeout;
+function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+}
+resizeCanvas();
+
+window.addEventListener('resize', () => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(resizeCanvas, 200);
+});
+
+// Circle configuration
+const circles = [
+    { x: 0.2, y: 0.2, size: 800, color: [129, 140, 248], speed: 0.0001, angle: 0, radius: 0.3 },
+    { x: 0.8, y: 0.3, size: 700, color: [168, 85, 247], speed: 0.00012, angle: Math.PI / 4, radius: 0.35 },
+    { x: 0.3, y: 0.7, size: 750, color: [236, 72, 153], speed: 0.00008, angle: Math.PI / 2, radius: 0.32 },
+    { x: 0.7, y: 0.75, size: 650, color: [99, 102, 241], speed: 0.00015, angle: Math.PI, radius: 0.28 },
+    { x: 0.5, y: 0.5, size: 900, color: [34, 211, 238], speed: 0.0001, angle: Math.PI * 1.5, radius: 0.4 },
+    { x: 0.6, y: 0.4, size: 600, color: [251, 146, 60], speed: 0.00013, angle: Math.PI / 3, radius: 0.25 },
+];
+
+// Generate static noise texture for overlay (Optimized)
+function generateNoiseOverlay() {
+    const noiseCanvas = document.createElement('canvas');
+    const noiseCtx = noiseCanvas.getContext('2d');
+    noiseCanvas.width = 200; // Small pattern size
+    noiseCanvas.height = 200;
+
+    const imageData = noiseCtx.createImageData(200, 200);
+    const data = imageData.data;
+
+    for (let i = 0; i < data.length; i += 4) {
+        const noise = Math.random() * 255;
+        data[i] = noise;     // R
+        data[i + 1] = noise; // G
+        data[i + 2] = noise; // B
+        data[i + 3] = 30;    // Alpha (Low opacity)
+    }
+
+    noiseCtx.putImageData(imageData, 0, 0);
+
+    const noiseOverlay = document.getElementById('noise-overlay');
+    noiseOverlay.style.backgroundImage = `url(${noiseCanvas.toDataURL()})`;
+}
+
+// Render gradient circles (Optimized - No pixel manipulation)
+function render(time) {
+    // Background gradient
+    const bgGradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+    bgGradient.addColorStop(0, '#2a2550');
+    bgGradient.addColorStop(0.25, '#3a3570');
+    bgGradient.addColorStop(0.5, '#433D8B');
+    bgGradient.addColorStop(0.75, '#3a3570');
+    bgGradient.addColorStop(1, '#2a2550');
+
+    ctx.fillStyle = bgGradient;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    // Draw animated circles
+    circles.forEach((circle, index) => {
+        const offsetX = Math.cos(circle.angle + time * circle.speed) * circle.radius * canvas.width;
+        const offsetY = Math.sin(circle.angle + time * circle.speed) * circle.radius * canvas.height;
+
+        const x = circle.x * canvas.width + offsetX;
+        const y = circle.y * canvas.height + offsetY;
+
+        const gradient = ctx.createRadialGradient(x, y, 0, x, y, circle.size);
+
+        const [r, g, b] = circle.color;
+        gradient.addColorStop(0, `rgba(${r}, ${g}, ${b}, 0.35)`);
+        gradient.addColorStop(0.15, `rgba(${r}, ${g}, ${b}, 0.28)`);
+        gradient.addColorStop(0.3, `rgba(${r}, ${g}, ${b}, 0.2)`);
+        gradient.addColorStop(0.45, `rgba(${r}, ${g}, ${b}, 0.12)`);
+        gradient.addColorStop(0.6, `rgba(${r}, ${g}, ${b}, 0.06)`);
+        gradient.addColorStop(0.75, `rgba(${r}, ${g}, ${b}, 0.02)`);
+        gradient.addColorStop(1, `rgba(${r}, ${g}, ${b}, 0)`);
+
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+    });
+
+    requestAnimationFrame(render);
+}
+
+// Initialize
+generateNoiseOverlay();
+requestAnimationFrame(render);
+
+// Existing code below
 document.addEventListener('DOMContentLoaded', () => {
     // Load and Parse Resume.md to Timeline
     loadResumeTimeline();

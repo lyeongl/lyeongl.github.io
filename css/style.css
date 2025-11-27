@@ -26,71 +26,192 @@ body {
 }
 
 /* Background Animation */
-.background-animation {
+/* Canvas Background */
+#background-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+}
+
+#noise-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     z-index: -1;
-    background: linear-gradient(135deg, #2a2550 0%, #433D8B 50%, #2a2550 100%);
-    overflow: hidden;
+    opacity: 0.05;
+    pointer-events: none;
 }
 
+.background-animation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+/* Hide CSS circles - using canvas instead */
 .background-animation::before,
-.background-animation::after {
+.background-animation::after,
+.circle-3,
+.circle-4,
+.circle-5,
+.circle-6,
+.circle-7,
+.circle-8 {
+    display: none;
+}
+
+.background-animation::before {
     content: '';
     position: absolute;
     border-radius: 50%;
-    filter: blur(80px);
-    opacity: 0.5;
 }
 
 .background-animation::before {
     width: 1000px;
     height: 1000px;
-    background: radial-gradient(circle, rgba(56, 189, 248, 0.5) 0%, transparent 70%);
+    background: radial-gradient(circle,
+            rgba(56, 189, 248, 0.35) 0%,
+            rgba(56, 189, 248, 0.3) 15%,
+            rgba(56, 189, 248, 0.25) 25%,
+            rgba(56, 189, 248, 0.18) 35%,
+            rgba(56, 189, 248, 0.12) 45%,
+            rgba(56, 189, 248, 0.08) 55%,
+            rgba(56, 189, 248, 0.04) 65%,
+            transparent 80%);
     top: -50%;
     left: -50%;
     animation: float1 60s linear infinite;
+    filter: blur(200px);
 }
 
 .background-animation::after {
     width: 900px;
     height: 900px;
-    background: radial-gradient(circle, rgba(244, 114, 182, 0.4) 0%, transparent 70%);
+    background: radial-gradient(circle,
+            rgba(244, 114, 182, 0.3) 0%,
+            rgba(244, 114, 182, 0.25) 15%,
+            rgba(244, 114, 182, 0.2) 25%,
+            rgba(244, 114, 182, 0.15) 35%,
+            rgba(244, 114, 182, 0.1) 45%,
+            rgba(244, 114, 182, 0.06) 55%,
+            rgba(244, 114, 182, 0.03) 65%,
+            transparent 80%);
     top: 50%;
     right: -50%;
     animation: float2 60s linear infinite;
+    filter: blur(200px);
 }
 
 .circle-3,
-.circle-4 {
+.circle-4,
+.circle-5,
+.circle-6,
+.circle-7,
+.circle-8 {
     content: '';
     position: absolute;
     border-radius: 50%;
-    filter: blur(80px);
-    opacity: 0.5;
+    filter: blur(200px);
+    opacity: 0.25;
 }
 
 .circle-3 {
-    width: 950px;
-    height: 950px;
-    background: radial-gradient(circle, rgba(129, 140, 248, 0.5) 0%, transparent 70%);
-    bottom: -50%;
-    left: -50%;
-    animation: float3 60s linear infinite;
-    animation-delay: 30s;
+    width: 800px;
+    height: 800px;
+    background: radial-gradient(circle,
+            rgba(129, 140, 248, 0.5) 0%,
+            rgba(129, 140, 248, 0.4) 20%,
+            rgba(129, 140, 248, 0.25) 35%,
+            rgba(129, 140, 248, 0.12) 50%,
+            transparent 70%);
+    top: 20%;
+    left: 10%;
+    animation: circleRotate1 40s linear infinite;
 }
 
 .circle-4 {
-    width: 850px;
-    height: 850px;
-    background: radial-gradient(circle, rgba(168, 85, 247, 0.5) 0%, transparent 70%);
-    top: -50%;
-    right: -50%;
-    animation: float4 60s linear infinite;
-    animation-delay: 30s;
+    width: 700px;
+    height: 700px;
+    background: radial-gradient(circle,
+            rgba(168, 85, 247, 0.5) 0%,
+            rgba(168, 85, 247, 0.4) 20%,
+            rgba(168, 85, 247, 0.25) 35%,
+            rgba(168, 85, 247, 0.12) 50%,
+            transparent 70%);
+    top: 10%;
+    right: 15%;
+    animation: circleRotate2 45s linear infinite;
+    animation-delay: 10s;
+}
+
+.circle-5 {
+    width: 750px;
+    height: 750px;
+    background: radial-gradient(circle,
+            rgba(236, 72, 153, 0.4) 0%,
+            rgba(236, 72, 153, 0.3) 20%,
+            rgba(236, 72, 153, 0.2) 35%,
+            rgba(236, 72, 153, 0.1) 50%,
+            transparent 70%);
+    bottom: 15%;
+    left: 20%;
+    animation: circleRotate3 50s linear infinite;
+    animation-delay: 20s;
+}
+
+.circle-6 {
+    width: 650px;
+    height: 650px;
+    background: radial-gradient(circle,
+            rgba(99, 102, 241, 0.5) 0%,
+            rgba(99, 102, 241, 0.4) 20%,
+            rgba(99, 102, 241, 0.25) 35%,
+            rgba(99, 102, 241, 0.12) 50%,
+            transparent 70%);
+    bottom: 25%;
+    right: 10%;
+    animation: circleRotate4 38s linear infinite;
+    animation-delay: 5s;
+}
+
+.circle-7 {
+    width: 900px;
+    height: 900px;
+    background: radial-gradient(circle,
+            rgba(34, 211, 238, 0.3) 0%,
+            rgba(34, 211, 238, 0.2) 20%,
+            rgba(34, 211, 238, 0.15) 35%,
+            rgba(34, 211, 238, 0.08) 50%,
+            transparent 70%);
+    top: 50%;
+    left: 50%;
+    animation: circleRotate5 55s linear infinite;
+    animation-delay: 15s;
+}
+
+.circle-8 {
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle,
+            rgba(251, 146, 60, 0.4) 0%,
+            rgba(251, 146, 60, 0.3) 20%,
+            rgba(251, 146, 60, 0.2) 35%,
+            rgba(251, 146, 60, 0.1) 50%,
+            transparent 70%);
+    top: 35%;
+    left: 35%;
+    animation: circleRotate6 42s linear infinite;
+    animation-delay: 25s;
 }
 
 @keyframes float1 {
@@ -113,23 +234,124 @@ body {
     }
 }
 
-@keyframes float3 {
+/* Circular rotation animations */
+@keyframes circleRotate1 {
     0% {
-        transform: translate(0, 0);
+        transform: translate(0, 0) scale(1);
+    }
+
+    25% {
+        transform: translate(60vw, -20vh) scale(1.1);
+    }
+
+    50% {
+        transform: translate(40vw, 30vh) scale(0.9);
+    }
+
+    75% {
+        transform: translate(-30vw, 10vh) scale(1.05);
     }
 
     100% {
-        transform: translate(200vw, -100vh);
+        transform: translate(0, 0) scale(1);
     }
 }
 
-@keyframes float4 {
+@keyframes circleRotate2 {
     0% {
-        transform: translate(0, 0);
+        transform: translate(0, 0) scale(1);
+    }
+
+    25% {
+        transform: translate(-50vw, 25vh) scale(0.9);
+    }
+
+    50% {
+        transform: translate(-20vw, -15vh) scale(1.1);
+    }
+
+    75% {
+        transform: translate(30vw, 20vh) scale(1.05);
     }
 
     100% {
-        transform: translate(-200vw, 100vh);
+        transform: translate(0, 0) scale(1);
+    }
+}
+
+@keyframes circleRotate3 {
+    0% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    25% {
+        transform: translate(40vw, 10vh) scale(1.1);
+    }
+
+    50% {
+        transform: translate(-10vw, -25vh) scale(0.95);
+    }
+
+    75% {
+        transform: translate(-45vw, 15vh) scale(1.05);
+    }
+
+    100% {
+        transform: translate(0, 0) scale(1);
+    }
+}
+
+@keyframes circleRotate4 {
+    0% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    25% {
+        transform: translate(-35vw, -20vh) scale(1.05);
+    }
+
+    50% {
+        transform: translate(25vw, 15vh) scale(0.9);
+    }
+
+    75% {
+        transform: translate(10vw, -30vh) scale(1.1);
+    }
+
+    100% {
+        transform: translate(0, 0) scale(1);
+    }
+}
+
+@keyframes circleRotate5 {
+    0% {
+        transform: translate(-50%, -50%) scale(1) rotate(0deg);
+    }
+
+    100% {
+        transform: translate(-50%, -50%) scale(1) rotate(360deg);
+    }
+}
+
+@keyframes circleRotate6 {
+    0% {
+        transform: translate(-50%, -50%) scale(1);
+    }
+
+    25% {
+        transform: translate(calc(-50% + 20vw), calc(-50% + 15vh)) scale(1.1);
+    }
+
+    50% {
+        transform: translate(calc(-50% - 15vw), calc(-50% + 20vh)) scale(0.95);
+    }
+
+    75% {
+        transform: translate(calc(-50% + 10vw), calc(-50% - 18vh)) scale(1.05);
+    }
+
+    100% {
+        transform: translate(-50%, -50%) scale(1);
     }
 }
 
@@ -183,16 +405,23 @@ nav a:hover {
 
 /* Hero Section */
 .hero-section {
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-content {
     text-align: center;
-    padding: 0 1rem;
+    z-index: 2;
+    max-width: 900px;
+    padding: 2rem;
 }
 
 .hero-content h1 {
-    font-size: 4rem;
+    font-size: 5rem;
     margin-bottom: 1rem;
     line-height: 1.2;
 }
