@@ -4,9 +4,19 @@ const ctx = canvas.getContext('2d', { alpha: false });
 
 // Set canvas size (Debounced)
 let resizeTimeout;
+let bgGradient; // Cache gradient
+
 function resizeCanvas() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
+
+    // Create gradient once on resize
+    bgGradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+    bgGradient.addColorStop(0, '#2a2550');
+    bgGradient.addColorStop(0.25, '#3a3570');
+    bgGradient.addColorStop(0.5, '#433D8B');
+    bgGradient.addColorStop(0.75, '#3a3570');
+    bgGradient.addColorStop(1, '#2a2550');
 }
 resizeCanvas();
 
@@ -51,14 +61,7 @@ function generateNoiseOverlay() {
 
 // Render gradient circles (Optimized - No pixel manipulation)
 function render(time) {
-    // Background gradient
-    const bgGradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-    bgGradient.addColorStop(0, '#2a2550');
-    bgGradient.addColorStop(0.25, '#3a3570');
-    bgGradient.addColorStop(0.5, '#433D8B');
-    bgGradient.addColorStop(0.75, '#3a3570');
-    bgGradient.addColorStop(1, '#2a2550');
-
+    // Use cached background gradient
     ctx.fillStyle = bgGradient;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
@@ -96,6 +99,57 @@ requestAnimationFrame(render);
 document.addEventListener('DOMContentLoaded', () => {
     // Load and Parse Resume.md to Timeline
     loadResumeTimeline();
+
+    // Smooth Scrolling with User Interruption Handling
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
+
+            if (!targetElement) return;
+
+            const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
+            const startPosition = window.pageYOffset;
+            const distance = targetPosition - startPosition;
+            const duration = 800; // ms
+            let start = null;
+            let animationId;
+
+            // Cancel scroll on user interaction
+            const cancelScroll = () => {
+                cancelAnimationFrame(animationId);
+                window.removeEventListener('wheel', cancelScroll);
+                window.removeEventListener('touchstart', cancelScroll);
+                window.removeEventListener('keydown', cancelScroll);
+            };
+
+            window.addEventListener('wheel', cancelScroll);
+            window.addEventListener('touchstart', cancelScroll);
+            window.addEventListener('keydown', cancelScroll);
+
+            function step(timestamp) {
+                if (!start) start = timestamp;
+                const progress = timestamp - start;
+                const percentage = Math.min(progress / duration, 1);
+
+                // Ease-in-out cubic function
+                const ease = percentage < 0.5
+                    ? 4 * percentage * percentage * percentage
+                    : 1 - Math.pow(-2 * percentage + 2, 3) / 2;
+
+                window.scrollTo(0, startPosition + distance * ease);
+
+                if (progress < duration) {
+                    animationId = requestAnimationFrame(step);
+                } else {
+                    cancelScroll(); // Cleanup listeners after completion
+                }
+            }
+
+            animationId = requestAnimationFrame(step);
+        });
+    });
 
     // Scroll Animations for general fade-in elements
     const observerOptions = {
