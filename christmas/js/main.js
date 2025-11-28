@@ -173,30 +173,56 @@ function updateActiveSection() {
     }
 }
 
-// Scroll event listener
+// Use IntersectionObserver for better scroll detection
+const observerOptions = {
+    root: null,
+    rootMargin: '0px',
+    threshold: 0.5
+};
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const version = entry.target.dataset.version;
+
+            // Update active button
+            versionButtons.forEach(btn => {
+                if (btn.dataset.version === version) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+
+            // Update active section
+            sections.forEach(s => {
+                if (s === entry.target) {
+                    s.classList.add('active');
+                } else {
+                    s.classList.remove('active');
+                }
+            });
+        }
+    });
+}, observerOptions);
+
+// Observe all sections
+sections.forEach(section => {
+    observer.observe(section);
+});
+
+// Also keep scroll listener as backup
 let scrollTimeout;
 window.addEventListener('scroll', () => {
     clearTimeout(scrollTimeout);
     scrollTimeout = setTimeout(() => {
         updateActiveSection();
-    }, 150);
-});
-
-// Also update on scroll end (for scroll snap)
-let isScrolling = false;
-window.addEventListener('scroll', () => {
-    if (!isScrolling) {
-        isScrolling = true;
-        setTimeout(() => {
-            updateActiveSection();
-            isScrolling = false;
-        }, 200);
-    }
+    }, 100);
 });
 
 // Initialize on load
 window.addEventListener('load', () => {
     setTimeout(() => {
         updateActiveSection();
-    }, 300);
+    }, 100);
 });
