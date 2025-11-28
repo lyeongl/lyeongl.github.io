@@ -27,12 +27,12 @@ window.addEventListener('resize', () => {
 
 // Circle configuration
 const circles = [
-    { x: 0.2, y: 0.2, size: 800, color: [129, 140, 248], speed: 0.0001, angle: 0, radius: 0.3 },
-    { x: 0.8, y: 0.3, size: 700, color: [168, 85, 247], speed: 0.00012, angle: Math.PI / 4, radius: 0.35 },
-    { x: 0.3, y: 0.7, size: 750, color: [236, 72, 153], speed: 0.00008, angle: Math.PI / 2, radius: 0.32 },
-    { x: 0.7, y: 0.75, size: 650, color: [99, 102, 241], speed: 0.00015, angle: Math.PI, radius: 0.28 },
-    { x: 0.5, y: 0.5, size: 900, color: [34, 211, 238], speed: 0.0001, angle: Math.PI * 1.5, radius: 0.4 },
-    { x: 0.6, y: 0.4, size: 600, color: [251, 146, 60], speed: 0.00013, angle: Math.PI / 3, radius: 0.25 },
+    { x: 0.2, y: 0.2, size: 800, color: [129, 140, 248], speed: 0.0003, angle: 0, radius: 0.3 },
+    { x: 0.8, y: 0.3, size: 700, color: [168, 85, 247], speed: 0.00036, angle: Math.PI / 4, radius: 0.35 },
+    { x: 0.3, y: 0.7, size: 750, color: [236, 72, 153], speed: 0.00024, angle: Math.PI / 2, radius: 0.32 },
+    { x: 0.7, y: 0.75, size: 650, color: [99, 102, 241], speed: 0.00045, angle: Math.PI, radius: 0.28 },
+    { x: 0.5, y: 0.5, size: 900, color: [34, 211, 238], speed: 0.0003, angle: Math.PI * 1.5, radius: 0.4 },
+    { x: 0.6, y: 0.4, size: 600, color: [251, 146, 60], speed: 0.00039, angle: Math.PI / 3, radius: 0.25 },
 ];
 
 // Generate static noise texture for overlay (Optimized)
@@ -108,6 +108,10 @@ resizeParticleCanvas();
 
 window.addEventListener('resize', () => {
     resizeParticleCanvas();
+    // Reset ambient stars to new edges
+    if (typeof ambientStars !== 'undefined') {
+        ambientStars.forEach(star => star.reset());
+    }
 });
 
 const particles = [];
@@ -120,20 +124,23 @@ class Particle {
     constructor(x, y) {
         this.x = x;
         this.y = y;
-        this.size = Math.random() * 2 + 0.5; // Smaller particles
+        this.size = Math.random() * 4 + 2; // Larger particles
         this.speedX = (Math.random() - 0.5) * 3;
         this.speedY = (Math.random() - 0.5) * 3;
         this.life = 1;
         this.decay = Math.random() * 0.015 + 0.008; // Slower decay
         this.color = this.getRandomColor();
+        // Twinkle effect parameters
+        this.twinkleSpeed = Math.random() * 0.2 + 0.05;
+        this.twinklePhase = Math.random() * Math.PI * 2;
     }
 
     getRandomColor() {
         const colors = [
-            [56, 189, 248],   // primary-color
-            [129, 140, 248],  // secondary-color
-            [244, 114, 182],  // accent-color
-            [168, 85, 247],   // purple
+            [255, 255, 255],  // Pure White
+            [255, 250, 220],  // Warm White
+            [225, 240, 255],  // Pale Blue
+            [255, 245, 230],  // Soft Star Light
         ];
         return colors[Math.floor(Math.random() * colors.length)];
     }
@@ -144,18 +151,24 @@ class Particle {
         this.life -= this.decay;
         this.speedX *= 0.98;
         this.speedY *= 0.98;
+        // Update twinkle phase
+        this.twinklePhase += this.twinkleSpeed;
     }
 
     draw() {
         particleCtx.save();
         const [r, g, b] = this.color;
 
+        // Twinkle calculation (sine wave)
+        const twinkle = Math.abs(Math.sin(this.twinklePhase));
+        const currentAlpha = this.life * (0.3 + twinkle * 0.7); // Base alpha + twinkle
+
         // Much larger, more subtle glow effect
-        const glowSize = this.size * 8; // Increased from 3
+        const glowSize = this.size * 6;
         const gradient = particleCtx.createRadialGradient(this.x, this.y, 0, this.x, this.y, glowSize);
-        gradient.addColorStop(0, `rgba(${r}, ${g}, ${b}, ${this.life * 0.3})`); // More transparent
-        gradient.addColorStop(0.3, `rgba(${r}, ${g}, ${b}, ${this.life * 0.15})`);
-        gradient.addColorStop(0.6, `rgba(${r}, ${g}, ${b}, ${this.life * 0.05})`);
+        // Reduced opacity for glow
+        gradient.addColorStop(0, `rgba(${r}, ${g}, ${b}, ${currentAlpha * 0.3})`);
+        gradient.addColorStop(0.4, `rgba(${r}, ${g}, ${b}, ${currentAlpha * 0.08})`);
         gradient.addColorStop(1, `rgba(${r}, ${g}, ${b}, 0)`);
 
         particleCtx.fillStyle = gradient;
@@ -163,11 +176,24 @@ class Particle {
         particleCtx.arc(this.x, this.y, glowSize, 0, Math.PI * 2);
         particleCtx.fill();
 
-        // Very subtle core
-        particleCtx.fillStyle = `rgba(${r}, ${g}, ${b}, ${this.life * 0.4})`;
+        // Core with twinkle - Reduced opacity
+        particleCtx.fillStyle = `rgba(${r}, ${g}, ${b}, ${currentAlpha * 0.8})`;
         particleCtx.beginPath();
-        particleCtx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        particleCtx.arc(this.x, this.y, this.size * 0.8, 0, Math.PI * 2); // Slightly smaller core
         particleCtx.fill();
+
+        // Cross star flare for white particles (occasional)
+        if (r === 255 && g === 255 && b === 255 && twinkle > 0.8) {
+            particleCtx.strokeStyle = `rgba(255, 255, 255, ${currentAlpha * 0.4})`;
+            particleCtx.lineWidth = 1;
+            particleCtx.beginPath();
+            particleCtx.moveTo(this.x - this.size * 3, this.y);
+            particleCtx.lineTo(this.x + this.size * 3, this.y);
+            particleCtx.moveTo(this.x, this.y - this.size * 3);
+            particleCtx.lineTo(this.x, this.y + this.size * 3);
+            particleCtx.stroke();
+        }
+
         particleCtx.restore();
     }
 
@@ -190,12 +216,80 @@ document.addEventListener('mousemove', (e) => {
     }
 });
 
+// Ambient Background Stars
+const ambientStars = [];
+const maxAmbientStars = 30;
+
+class AmbientStar extends Particle {
+    constructor() {
+        super(0, 0); // Position set below
+        this.reset();
+        // Slower twinkle for ambient stars
+        this.twinkleSpeed = Math.random() * 0.05 + 0.01;
+        this.size = Math.random() * 3 + 1.5;
+    }
+
+    reset() {
+        // Position randomly along the edges
+        const edge = Math.floor(Math.random() * 4); // 0: Top, 1: Right, 2: Bottom, 3: Left
+        const padding = 50; // Distance from edge
+
+        if (edge === 0) { // Top
+            this.x = Math.random() * particleCanvas.width;
+            this.y = Math.random() * (particleCanvas.height * 0.2);
+        } else if (edge === 1) { // Right
+            this.x = particleCanvas.width - Math.random() * (particleCanvas.width * 0.2);
+            this.y = Math.random() * particleCanvas.height;
+        } else if (edge === 2) { // Bottom
+            this.x = Math.random() * particleCanvas.width;
+            this.y = particleCanvas.height - Math.random() * (particleCanvas.height * 0.2);
+        } else { // Left
+            this.x = Math.random() * (particleCanvas.width * 0.2);
+            this.y = Math.random() * particleCanvas.height;
+        }
+
+        this.life = 1;
+        this.decay = 0; // Ambient stars don't decay
+        this.color = this.getRandomColor();
+        this.twinklePhase = Math.random() * Math.PI * 2;
+    }
+
+    update() {
+        // Very slow drift
+        this.x += (Math.random() - 0.5) * 0.2;
+        this.y += (Math.random() - 0.5) * 0.2;
+
+        // Update twinkle
+        this.twinklePhase += this.twinkleSpeed;
+
+        // Reset if drifted too far (optional, but keeps them in bounds)
+        if (this.x < -50 || this.x > particleCanvas.width + 50 ||
+            this.y < -50 || this.y > particleCanvas.height + 50) {
+            this.reset();
+        }
+    }
+}
+
+// Initialize ambient stars
+function initAmbientStars() {
+    for (let i = 0; i < maxAmbientStars; i++) {
+        ambientStars.push(new AmbientStar());
+    }
+}
+initAmbientStars();
+
 // Particle animation loop
 function animateParticles() {
     // Clear canvas
     particleCtx.clearRect(0, 0, particleCanvas.width, particleCanvas.height);
 
-    // Update and draw particles
+    // Update and draw ambient stars
+    ambientStars.forEach(star => {
+        star.update();
+        star.draw();
+    });
+
+    // Update and draw mouse particles
     for (let i = particles.length - 1; i >= 0; i--) {
         particles[i].update();
         particles[i].draw();
