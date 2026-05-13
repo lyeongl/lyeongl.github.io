@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>이영주 | Backend Engineer</title>
+  <meta name="description" content="9년차 백엔드 엔지니어 이영주의 이력서 사이트입니다.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- Scroll Progress -->
+<div id="scroll-progress"></div>
+
+<!-- Navigation -->
+<nav class="nav" id="navbar">
+  <a href="#hero" class="nav-logo">
+    <span class="nav-logo-bracket">{ YL }</span>
+    <span>이영주</span>
+  </a>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#experience">Experience</a>
+    <a href="#education">Education</a>
+    <a href="https://github.com/lyeongl" target="_blank" rel="noopener" class="nav-github">
+      <i class="fab fa-github"></i> GitHub
+    </a>
+  </div>
+  <div class="nav-hamburger" id="hamburger" aria-label="메뉴 열기">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- Mobile Nav -->
+<div class="nav-mobile" id="mobile-menu">
+  <a href="#about" class="mobile-link">About</a>
+  <a href="#experience" class="mobile-link">Experience</a>
+  <a href="#education" class="mobile-link">Education</a>
+  <a href="https://github.com/lyeongl" target="_blank" rel="noopener">
+    <i class="fab fa-github"></i> GitHub
+  </a>
+</div>
+
+<!-- Hero -->
+<section class="hero" id="hero">
+  <div class="hero-eyebrow">Backend Engineer</div>
+  <h1 class="hero-name">이영주</h1>
+  <div class="hero-name-en">Yeongju Lee</div>
+  <div class="hero-title" id="typing-title"><span id="typing-text"></span><span class="cursor"></span></div>
+  <p class="hero-bio">
+    백엔드 엔지니어로, 기획 단계부터 참여하여 프로덕트 의사결정에 기여해왔습니다.<br>
+    AI 코딩 에이전트를 활용한 개발 자동화부터 시스템 설계·개편까지,<br>
+    문제를 정의하고 구조를 설계하여 해결합니다.
+  </p>
+  <div class="hero-links">
+    <a href="mailto:leyoug0322@gmail.com" class="hero-link primary">
+      <i class="fas fa-envelope"></i> leyoug0322@gmail.com
+    </a>
+    <a href="https://github.com/lyeongl" target="_blank" rel="noopener" class="hero-link secondary">
+      <i class="fab fa-github"></i> GitHub
+    </a>
+  </div>
+  <div class="hero-stats">
+    <div>
+      <div class="hero-stat-value">9년</div>
+      <div class="hero-stat-label">Career</div>
+    </div>
+    <div>
+      <div class="hero-stat-value">4곳</div>
+      <div class="hero-stat-label">Companies</div>
+    </div>
+    <div>
+      <div class="hero-stat-value">Python</div>
+      <div class="hero-stat-label">Main Stack</div>
+    </div>
+    <div>
+      <div class="hero-stat-value">AWS</div>
+      <div class="hero-stat-label">Cloud</div>
+    </div>
+  </div>
+</section>
+
+<!-- About -->
+<section class="section" id="about">
+  <div data-aos="fade-up">
+    <div class="section-label">About</div>
+    <h2 class="section-title">소개</h2>
+    <hr class="section-divider">
+    <p class="about-text">
+      Gray Zone을 줄이기 위해 <strong>실무자와 적극적으로 소통</strong>하며 기획·정책 의사결정에 기여합니다.<br>
+      사용자 흐름을 기반으로 <strong>비즈니스 의도</strong>에 맞게 구현하고, <strong>유지보수와 운영을 고려한 설계</strong>를 지향합니다.<br>
+      AI 에이전트를 활용해 새로운 도메인 투입 시 <strong>이슈와 과제를 병렬로 처리하며 생산성</strong>을 높였습니다.<br>
+      주요 스택은 Python/Django이며, 새로운 기술과 환경도 빠르게 익혀 실전에 적용해왔습니다.<br><br>
+      MAU 70만 뷰티 플랫폼에서 앱·웹·어드민·마케팅센터 등 6개 이상 서비스의 백엔드를 담당하며,
+      인수인계 없이 새로운 도메인에 투입되어 빠르게 적응해왔습니다.
+      AI 에이전트를 활용해 개인 개발 자동화 환경을 구축하고 개발 생산성을 끌어올려
+      기술적 의사결정의 질을 높이는 데 집중하고 있습니다.
+    </p>
+  </div>
+</section>
+
+<!-- Experience -->
+<section class="section" id="experience">
+  <div data-aos="fade-up">
+    <div class="section-label">Experience</div>
+    <h2 class="section-title">경력</h2>
+    <hr class="section-divider">
+  </div>
+
+  <div class="timeline">
+
+    <!-- 화해글로벌 -->
+    <div class="timeline-item" data-aos="fade-up">
+      <div class="job-header">
+        <div class="job-company">주식회사 화해글로벌</div>
+        <div class="job-meta">
+          <span class="job-period">2021.06 — 현재</span>
+          <span class="job-role">Backend Engineer</span>
+        </div>
+        <div class="job-description">MAU 70만, 누적 가입자 1,200만 뷰티 플랫폼. 화해앱 · 화해웹 · 글로벌웹 · 운영어드민 · 마케팅센터 등 전반적인 서비스의 백엔드 담당.</div>
+      </div>
+
+      <div class="project-cards">
+        <div class="project-card open">
+          <div class="project-card-header" onclick="toggleCard(this)">
+            <span class="project-card-title">마케팅센터 수기 운영 프로세스 자동화</span>
+            <span class="project-card-year">2026</span>
+            <span class="project-card-chevron"><i class="fas fa-chevron-down"></i></span>
+          </div>
+          <div class="project-card-body">
+            <ul>
+              <li>처음 접하는 도메인에 인수인계 없이 단독 투입, AI 기반 개발 자동화로 과제·이슈를 병렬 처리하며 빠르게 적응</li>
+              <li>글로벌광고사업팀의 수기 운영 업무를 시스템화하여 운영 비용 감소 및 매출 증대에 기여</li>
+              <li>Apify + Celery + AWS EventBridge Scheduler를 활용한 글로벌 인플루언서 크롤링 자동화 파이프라인 구축</li>
+              <li>n8n을 활용한 크롤링 지표 모니터링 자동화 및 AI 검수 파이프라인 기여</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="project-card open">
+          <div class="project-card-header" onclick="toggleCard(this)">
+            <span class="project-card-title">글로벌웹 다국어 대응 및 AI 기능 유지보수</span>
+            <span class="project-card-year">2025</span>
+            <span class="project-card-chevron"><i class="fas fa-chevron-down"></i></span>
+          </div>
+          <div class="project-card-body">
+            <ul>
+              <li>화해 글로벌웹 i18n/l10n 운영 지원 및 이슈 대응</li>
+              <li>기존 5개 언어 운영 지원 및 스페인어 신규 언어 추가</li>
+              <li>리뷰 AI 번역 및 글로벌웹 AI 챗봇 유지보수</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="project-card open">
+          <div class="project-card-header" onclick="toggleCard(this)">
+            <span class="project-card-title">혜택·커뮤니티 기능 개발</span>
+            <span class="project-card-year">2025</span>
+            <span class="project-card-chevron"><i class="fas fa-chevron-down"></i></span>
+          </div>
+          <div class="project-card-body">
+            <ul>
+              <li>래플, 미션, 투표, 게시판, 대댓글 등 혜택·커뮤니티 기능의 백엔드 설계 및 개발</li>
+              <li>래플 동시성 제어로 데이터 정합성 보장, DB 인덱스·캐시 적용으로 API 응답 최적화</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="project-card open">
+          <div class="project-card-header" onclick="toggleCard(this)">
+            <span class="project-card-title">레거시 리뷰 시스템 개편</span>
+            <span class="project-card-year">2024</span>
+            <span class="project-card-chevron"><i class="fas fa-chevron-down"></i></span>
+          </div>
+          <div class="project-card-body">
+            <ul>
+              <li>약 890만 건 규모의 리뷰 조회 관련 API를 MySQL에서 Elasticsearch 기반으로 개편</li>
+              <li>실시간 점수 계산·정렬 로직을 검색 엔진으로 이전하여 응답 시간 수 초 → 수십 ms로 단축</li>
+              <li>기획 단계에서 정책 선제 제안, 확장 가능한 복합 타입 구조로 전환</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="project-card open">
+          <div class="project-card-header" onclick="toggleCard(this)">
+            <span class="project-card-title">회원가입·어워드 개편 및 인증 시스템 구축</span>
+            <span class="project-card-year">2023</span>
+            <span class="project-card-chevron"><i class="fas fa-chevron-down"></i></span>
+          </div>
+          <div class="project-card-body">
+            <ul>
+              <li>레거시 회원가입 플로우 개편으로 UX, 유지보수성 향상</li>
+              <li>레거시 어워드 시스템의 계층 구조를 유연하게 개편, 구좌 판매 증대 기여</li>
+              <li>화해 웹 소셜 로그인 인증 도입, JWT 인증 체계 신규 설계·구현</li>
+              <li>GitHub Actions 기반 Jira 이슈 상태 자동화 워크플로우 구축, 팀 반복 수작업 제거</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="project-card open">
+          <div class="project-card-header" onclick="toggleCard(this)">
+            <span class="project-card-title">운영 어드민 전면 이관</span>
+            <span class="project-card-year">2022</span>
+            <span class="project-card-chevron"><i class="fas fa-chevron-down"></i></span>
+          </div>
+          <div class="project-card-body">
+            <ul>
+              <li>Vanilla JS + JSP 기반 레거시 어드민을 DRF API로 대부분 이관 및 성능 개선</li>
+              <li>권한 관리 시스템 구축</li>
+              <li>접근 로그 관리 등 ISMS 대응 보안 조치 병행</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="tech-tags">
+        <span class="tag">Python</span>
+        <span class="tag">Django</span>
+        <span class="tag">DRF</span>
+        <span class="tag">FastAPI</span>
+        <span class="tag">SQLAlchemy</span>
+        <span class="tag">MySQL</span>
+        <span class="tag">Redis</span>
+        <span class="tag">Elasticsearch</span>
+        <span class="tag">Celery</span>
+        <span class="tag">AWS</span>
+        <span class="tag">Terraform</span>
+        <span class="tag">Docker</span>
+        <span class="tag">GitHub Actions</span>
+        <span class="tag">Jenkins</span>
+        <span class="tag">BigQuery</span>
+        <span class="tag">AWS Bedrock</span>
+        <span class="tag">Apify</span>
+        <span class="tag">n8n</span>
+      </div>
+    </div>
+
+    <!-- 마켓디자이너스 -->
+    <div class="timeline-item" data-aos="fade-up">
+      <div class="job-header">
+        <div class="job-company">(주)마켓디자이너스</div>
+        <div class="job-meta">
+          <span class="job-period">2019.08 — 2021.06</span>
+          <span class="job-role">Fullstack Engineer</span>
+        </div>
+      </div>
+
+      <div class="project-cards">
+        <div class="project-card open">
+          <div class="project-card-header" onclick="toggleCard(this)">
+            <span class="project-card-title">튜터링 초등화상영어 풀스택 개발</span>
+            <span class="project-card-year">2020</span>
+            <span class="project-card-chevron"><i class="fas fa-chevron-down"></i></span>
+          </div>
+          <div class="project-card-body">
+            <ul>
+              <li>3명 개발팀으로 3개월 내 서비스, 백오피스 개발부터 런칭까지 완료</li>
+              <li>학생용 초등화상영어 웹 풀스택 개발 (Laravel + Vue.js)</li>
+              <li>Tutor용 글로벌 수업 관리 웹 풀스택 개발 (수업 스케줄·학생 관리, i18n/l10n 다국어 지원)</li>
+              <li>어드민 웹 전체 페이지 풀스택 개발</li>
+              <li>Remotemonster 기반 화상 통화 기능 고도화, Pusher 기반 실시간 상호작용 구현</li>
+              <li>Lambda + ffmpeg 수업 녹화 자동 mp4 변환 시스템 구축</li>
+              <li>서버리스 이미지 처리 시스템 도입 (AWS serverless-image-handler), 동적 리사이징·CDN 캐싱으로 개선</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="project-card open">
+          <div class="project-card-header" onclick="toggleCard(this)">
+            <span class="project-card-title">튜터링 앱 백엔드 개발</span>
+            <span class="project-card-year">2019 – 2021</span>
+            <span class="project-card-chevron"><i class="fas fa-chevron-down"></i></span>
+          </div>
+          <div class="project-card-body">
+            <ul>
+              <li>튜터링 영어회화 앱 REST API 개발 및 운영</li>
+              <li>튜터링 중국어 앱 API 개발 및 런칭 (i18n/l10n 다국어 설계)</li>
+              <li>EC2 파일 적재로 인한 디스크 포화 문제를 S3 무중단 마이그레이션으로 해결, CloudFront 캐시 최적화</li>
+              <li>CodeIgniter 레거시 어드민을 Laravel + React로 95% 이관, 쿼리 최적화 및 공통화로 유지보수 효율화</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="tech-tags">
+        <span class="tag">PHP 7.4</span>
+        <span class="tag">Laravel 7</span>
+        <span class="tag">MySQL</span>
+        <span class="tag">Vue.js</span>
+        <span class="tag">React</span>
+        <span class="tag">Bootstrap</span>
+        <span class="tag">SASS</span>
+        <span class="tag">AWS</span>
+        <span class="tag">Pusher</span>
+        <span class="tag">Remotemonster</span>
+      </div>
+    </div>
+
+    <!-- 두꺼비세상 -->
+    <div class="timeline-item" data-aos="fade-up">
+      <div class="job-header">
+        <div class="job-company">(주)두꺼비세상</div>
+        <div class="job-meta">
+          <span class="job-period">2019.05 — 2019.08</span>
+          <span class="job-role">Fullstack Engineer</span>
+        </div>
+      </div>
+
+      <div class="project-cards">
+        <div class="project-card open">
+          <div class="project-card-header" onclick="toggleCard(this)">
+            <span class="project-card-title">피터팬의 좋은방 구하기 서비스 개발</span>
+            <span class="project-card-year">2019</span>
+            <span class="project-card-chevron"><i class="fas fa-chevron-down"></i></span>
+          </div>
+          <div class="project-card-body">
+            <ul>
+              <li>부동산 중개 앱 REST API 개발 및 웹 유지보수</li>
+              <li>KT 협력사 부동산 전자계약 시스템, 인수인계 없이 미완성 프로토타입을 인수받아 이슈 파악·해결 후 단독 QA 및 런칭</li>
+              <li>KG이니시스 결제 모듈 연동</li>
+              <li>레거시 코드 분석·문서화 및 쿼리 최적화</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="tech-tags">
+        <span class="tag">PHP 7.1</span>
+        <span class="tag">Laravel 5.2</span>
+        <span class="tag">MySQL 5.7</span>
+        <span class="tag">AWS</span>
+        <span class="tag">Javascript</span>
+      </div>
+    </div>
+
+    <!-- 큐피스트 -->
+    <div class="timeline-item" data-aos="fade-up">
+      <div class="job-header">
+        <div class="job-company">(주)큐피스트</div>
+        <div class="job-meta">
+          <span class="job-period">2017.11 — 2019.05</span>
+          <span class="job-role">Backend Engineer</span>
+        </div>
+      </div>
+
+      <div class="project-cards">
+        <div class="project-card open">
+          <div class="project-card-header" onclick="toggleCard(this)">
+            <span class="project-card-title">글램 서비스 개발</span>
+            <span class="project-card-year">2017 – 2019</span>
+            <span class="project-card-chevron"><i class="fas fa-chevron-down"></i></span>
+          </div>
+          <div class="project-card-body">
+            <ul>
+              <li>DAU 8만 데이팅 앱 REST API 개발 및 운영</li>
+              <li>New Relic 모니터링 기반 쿼리 최적화, Redis 캐싱, SQS 비동기 처리로 API 응답 300ms 이하 유지</li>
+              <li>JWT 인증 시스템 설계, iOS APNS 라이브러리 프로토콜 이슈를 직접 패치하여 푸시 안정화</li>
+              <li>Laravel + Angular 기반 어드민 풀스택 개발</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="tech-tags">
+        <span class="tag">PHP 7.1</span>
+        <span class="tag">Laravel 5.6</span>
+        <span class="tag">MySQL 5.6</span>
+        <span class="tag">Redis</span>
+        <span class="tag">Elasticsearch</span>
+        <span class="tag">Angular 1.6</span>
+        <span class="tag">AWS</span>
+      </div>
+    </div>
+
+  </div><!-- /timeline -->
+</section>
+
+<!-- Skills -->
+<section class="section" id="skills">
+  <div data-aos="fade-up">
+    <div class="section-label">Skills</div>
+    <h2 class="section-title">기술 스택</h2>
+    <hr class="section-divider">
+    <div class="skills-grid">
+      <div class="skills-row">
+        <div class="skills-label">Backend</div>
+        <div class="skills-tags">
+          <span class="tag">Python</span>
+          <span class="tag">Django</span>
+          <span class="tag">DRF</span>
+          <span class="tag">FastAPI</span>
+          <span class="tag">SQLAlchemy</span>
+          <span class="tag">PHP</span>
+          <span class="tag">Laravel</span>
+        </div>
+      </div>
+      <div class="skills-row">
+        <div class="skills-label">Frontend</div>
+        <div class="skills-tags">
+          <span class="tag">Vue.js</span>
+          <span class="tag">React</span>
+          <span class="tag">Angular</span>
+          <span class="tag">Bootstrap</span>
+          <span class="tag">SASS</span>
+        </div>
+      </div>
+      <div class="skills-row">
+        <div class="skills-label">Database</div>
+        <div class="skills-tags">
+          <span class="tag">MySQL</span>
+          <span class="tag">Redis</span>
+          <span class="tag">Elasticsearch</span>
+          <span class="tag">BigQuery</span>
+        </div>
+      </div>
+      <div class="skills-row">
+        <div class="skills-label">Infra</div>
+        <div class="skills-tags">
+          <span class="tag">AWS</span>
+          <span class="tag">Terraform</span>
+          <span class="tag">Docker</span>
+          <span class="tag">Celery</span>
+          <span class="tag">GitHub Actions</span>
+          <span class="tag">Kibana</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Education -->
+<section class="section" id="education">
+  <div data-aos="fade-up">
+    <div class="section-label">Education</div>
+    <h2 class="section-title">학력</h2>
+    <hr class="section-divider">
+    <div class="edu-card">
+      <div>
+        <div class="edu-school">서울여자대학교</div>
+        <div class="edu-major">멀티미디어학과 졸업</div>
+      </div>
+      <div class="edu-period">2013 — 2017</div>
+      <div class="edu-details">
+        <div class="edu-detail">컴퓨터공학 전공 핵심 과목 이수 — 자료구조, 운영체제, 데이터베이스론, 네트워크</div>
+        <div class="edu-detail">평점 4.0 / 4.5 · 과수석 2회</div>
+        <div class="edu-detail">재학 중 장학금 수혜</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Etc -->
+<section class="section" id="etc">
+  <div data-aos="fade-up">
+    <div class="section-label">Etc</div>
+    <h2 class="section-title">기타</h2>
+    <hr class="section-divider">
+    <div class="etc-grid">
+      <div class="etc-card">
+        <div class="etc-title">환자 연구 데이터 관리 웹 개발</div>
+        <div class="etc-period">2016.01 — 2017.01</div>
+        <div class="etc-desc">대학 연구 프로젝트. 병원 대상 환자 데이터 수집·관리 웹 개발.</div>
+        <div class="etc-desc" style="margin-top:6px;font-size:0.85em;color:#888;">PHP · MySQL · Apache · Javascript</div>
+      </div>
+      <div class="etc-card">
+        <div class="etc-title">인터넷과 SW 활용 공모전 장려상</div>
+        <div class="etc-period">2016.11</div>
+        <div class="etc-desc">아두이노와 앱을 활용한 아기 울음 분석 및 알림, 적정 온도 표현.</div>
+        <div class="etc-desc" style="margin-top:6px;font-size:0.85em;color:#888;">Arduino · Android</div>
+      </div>
+      <div class="etc-card">
+        <div class="etc-title">웹 개발 특강 수료</div>
+        <div class="etc-period">2015.06</div>
+        <div class="etc-desc">기획, DB 설계, 웹 개발 전 과정 학습. 쇼핑몰 웹 개발.</div>
+        <div class="etc-desc" style="margin-top:6px;font-size:0.85em;color:#888;">Java · JSP · Oracle · Apache Tomcat</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-left">
+    <strong>이영주 · Yeongju Lee</strong>
+    <span>Backend Engineer</span>
+  </div>
+  <div class="footer-links">
+    <a href="mailto:leyoug0322@gmail.com">
+      <i class="fas fa-envelope"></i> leyoug0322@gmail.com
+    </a>
+    <a href="https://github.com/lyeongl" target="_blank" rel="noopener">
+      <i class="fab fa-github"></i> GitHub
+    </a>
+  </div>
+</footer>
+
+<!-- Back to top -->
+<button class="back-to-top" id="back-to-top" aria-label="맨 위로">
+  <i class="fas fa-arrow-up"></i>
+</button>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
